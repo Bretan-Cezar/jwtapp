@@ -1,4 +1,5 @@
 # Basic JWT back-end application
+Simple JWT authorization back-end application using RS256 in Java/Spring.
 
 ## Certificate and keys creation procedure:
 

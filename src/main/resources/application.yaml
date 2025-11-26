@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: jwtapp
+
+  security:
+    x5u: http://localhost:8000/cert.crt
+    private-key: classpath:/key_unenc.pem
+
+    # unit: seconds
+    jwt-exp: 86400
+
+server:
+  port: 8080
