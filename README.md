@@ -4,6 +4,7 @@ Simple JWT authorization back-end application using RS256 in Java/Spring.
 ## Certificate and keys creation procedure:
 
 ```
+mkdir ./certs
 cd ./certs
 
 # Interactive
@@ -12,6 +13,9 @@ openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.crt -sha256 -days 3
 openssl x509 -pubkey -noout -in cert.crt > pub.pem
 
 openssl pkcs8 -in key.pem > key_unenc.pem
+
+cd ..
+cp -a ./certs/. ./src/main/resources
 ```
 
 ## Certificate local hosting procedure:
