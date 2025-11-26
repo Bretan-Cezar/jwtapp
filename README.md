@@ -39,3 +39,9 @@ Has two endpoints:
   "Bearer " in the Authorization HTTP header. Returns a response indicating whether
   a JWT token is valid. If not, the reason is also included.
 
+Utilities for requests:
+
+- Postman (Windows, MacOS, Ubuntu, Fedora)
+- ATAC (Arch Linux)
+- curl (any CLI)
+
