@@ -1,7 +1,5 @@
 package com.cbretan.jwtapp.security;
 
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.RSAKeyProvider;
 import lombok.RequiredArgsConstructor;
 import org.bouncycastle.util.io.pem.PemReader;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +20,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 
 @Component
 @RequiredArgsConstructor
-public class CustomRSAKeyProvider implements RSAKeyProvider {
+public class CustomRSAKeyProvider {
 
     @Value("${spring.security.x5u}")
     private String certURL;
@@ -34,11 +32,16 @@ public class CustomRSAKeyProvider implements RSAKeyProvider {
 
     private final KeyFactory keyFactory;
 
-    @Override
-    public RSAPublicKey getPublicKeyById(String keyId) {
+    /**
+     * Method for fetching the certificate file from a URL and extracting the public key information.
+     * @param url Provides the URL from which the public key certificate needs to be fetched.
+     * @return RSA public key object
+     * @throws SecurityException when the certificate URL is invalid or not accessible.
+     */
+    public RSAPublicKey getPublicKeyFromCertificateURL(String url) throws SecurityException {
 
         try (
-                InputStream in = new URL(keyId).openStream();
+                InputStream in = new URL(url).openStream()
         ) {
             var cert = (X509Certificate) certFactory.generateCertificate(in);
 
@@ -55,8 +58,12 @@ public class CustomRSAKeyProvider implements RSAKeyProvider {
         }
     }
 
-    @Override
-    public RSAPrivateKey getPrivateKey() {
+    /**
+     * Method for obtaining a private RSA key from a local file.
+     * @return Private RSA key object
+     * @throws SecurityException when an error occurred in reading the file or if the private key spec is invalid.
+     */
+    public RSAPrivateKey getPrivateKey() throws SecurityException {
 
         try(
                 InputStream in = privateKeyPath.getInputStream();
@@ -75,10 +82,5 @@ public class CustomRSAKeyProvider implements RSAKeyProvider {
         catch (InvalidKeySpecException e) {
             throw new SecurityException("Invalid private key spec");
         }
-    }
-
-    @Override
-    public String getPrivateKeyId() {
-        return "";
     }
 }

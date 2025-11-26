@@ -38,8 +38,8 @@ gradle bootRun
 This will open the back-end app on port 8080 (port can be changed in application.yaml configuration).
 Has two endpoints:
 
-- ```GET``` ```http://localhost:8080/auth``` for obtaining a valid JWT token
-- ```POST``` ```http://localhost:8080/auth``` accessible only with a JWT token preceded by 
+- ```GET``` ```http://localhost:8080/auth/``` for obtaining a valid JWT token
+- ```POST``` ```http://localhost:8080/auth/``` accessible only with a JWT token preceded by 
   "Bearer " in the Authorization HTTP header. Returns a response indicating whether
   a JWT token is valid. If not, the reason is also included.
 

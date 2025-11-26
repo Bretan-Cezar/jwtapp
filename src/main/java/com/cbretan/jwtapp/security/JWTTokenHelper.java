@@ -75,7 +75,7 @@ public class JWTTokenHelper {
 
         var jwtVerifier = JWT.require(
                 Algorithm.RSA256(
-                        keyProvider.getPublicKeyById(jwtHeader.getX5u()),
+                        keyProvider.getPublicKeyFromCertificateURL(jwtHeader.x5u()),
                         keyProvider.getPrivateKey()
                 )
         ).build();
@@ -104,9 +104,9 @@ public class JWTTokenHelper {
 
         var headerClaims = new HashMap<String, Object>();
 
-        headerClaims.put("alg", validJWTHeader.getAlg());
-        headerClaims.put("typ", validJWTHeader.getTyp());
-        headerClaims.put("x5u", validJWTHeader.getX5u());
+        headerClaims.put("alg", validJWTHeader.alg());
+        headerClaims.put("typ", validJWTHeader.typ());
+        headerClaims.put("x5u", validJWTHeader.x5u());
 
         var currentDate = new Date();
         var expDate = new Date(currentDate.getTime() + jwtExpirationTime * 1000);
@@ -117,7 +117,7 @@ public class JWTTokenHelper {
                 .withExpiresAt(expDate)
                 .withSubject("test")
                 .sign(Algorithm.RSA256(
-                        keyProvider.getPublicKeyById(validJWTHeader.getX5u()),
+                        keyProvider.getPublicKeyFromCertificateURL(validJWTHeader.x5u()),
                         keyProvider.getPrivateKey())
                 );
     }
