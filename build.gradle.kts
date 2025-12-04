@@ -45,7 +45,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.13.2")
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk18on
-    implementation("org.bouncycastle:bcprov-jdk18on:1.82")
+    implementation("org.bouncycastle:bcpkix-jdk18on:1.83")
 }
 
 tasks.withType<Test> {

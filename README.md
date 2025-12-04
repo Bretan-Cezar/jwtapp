@@ -7,16 +7,22 @@ Simple JWT authorization back-end application using RS256 in Java/Spring.
 mkdir ./certs
 cd ./certs
 
-# Interactive
+# Interactive, write down passphrase
 openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.crt -sha256 -days 365
 
 openssl x509 -pubkey -noout -in cert.crt > pub.pem
 
-openssl pkcs8 -in key.pem > key_unenc.pem
-
 cd ..
 cp -a ./certs/. ./src/main/resources
 ```
+
+Add the Base64-encoded passphrase to the ```src/main/resources/application.yaml``` as the ```spring.security.passphrase``` property.
+For obtaining the Base64 encoding:
+
+```
+openssl base64 <<< '<passphrase>'
+```
+
 
 ## Certificate local hosting procedure:
 

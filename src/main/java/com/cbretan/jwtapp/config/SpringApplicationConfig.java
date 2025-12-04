@@ -2,6 +2,7 @@ package com.cbretan.jwtapp.config;
 
 import com.cbretan.jwtapp.security.JWTHeader;
 import com.google.gson.Gson;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -59,5 +60,14 @@ public class SpringApplicationConfig {
     @Bean
     public JWTHeader validJWTHeader() {
         return new JWTHeader("RS256", "JWT", certURL);
+    }
+
+    /**
+     * BouncyCastle Provider object used for the decryptor providers and key converters.
+     * @return BouncyCastle Provider object
+     */
+    @Bean
+    public BouncyCastleProvider bouncyCastleProvider() {
+        return new BouncyCastleProvider();
     }
 }

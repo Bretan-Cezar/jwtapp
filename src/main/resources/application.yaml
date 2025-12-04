@@ -4,10 +4,10 @@ spring:
 
   security:
     x5u: http://localhost:8000/cert.crt
-    private-key: classpath:/key_unenc.pem
+    private-key: classpath:/key.pem
+    passphrase: dGVzdAo=
 
     # unit: seconds
-    jwt-exp: 86400
-
+    jwt-exp: 90
 server:
   port: 8080

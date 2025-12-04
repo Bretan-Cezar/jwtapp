@@ -3,27 +3,21 @@ package com.cbretan.jwtapp.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.google.gson.Gson;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
 public class JWTTokenHelper {
 
-    @Autowired
-    private Environment env;
-
     /**
      * JWT token validity period in seconds.
      */
+    @Value("${spring.security.jwt-exp}")
     private Long jwtExpirationTime;
 
     /**
@@ -32,13 +26,6 @@ public class JWTTokenHelper {
     private final CustomRSAKeyProvider keyProvider;
 
     private final JWTHeader validJWTHeader;
-
-    private final Gson gson;
-
-    @PostConstruct
-    private void init() {
-        jwtExpirationTime = Long.valueOf(Objects.requireNonNull(env.getProperty("spring.security.jwt-exp")));
-    }
 
     /**
      * Method for verifying a JWT token's integrity and authenticity.
